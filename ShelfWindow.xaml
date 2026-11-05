@@ -1,0 +1,64 @@
+<Window x:Class="TangerineWin.ShelfWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="245" Height="215"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        AllowDrop="True"
+        FontFamily="{StaticResource MacFont}"
+        Drop="Shelf_Drop">
+    <Grid Margin="10">
+        <Border CornerRadius="18" BorderBrush="#CCFFFFFF" BorderThickness="1.5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#F4FAF9F5" Offset="0.0"/>
+                    <GradientStop Color="#EAEDEAE2" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="18" ShadowDepth="4" Opacity="0.28" Color="#000000"/>
+            </Border.Effect>
+
+            <Grid Margin="12,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title Bar (Draggable) -->
+                <Grid Grid.Row="0" MouseLeftButtonDown="Header_MouseLeftButtonDown" Background="Transparent" Cursor="SizeAll">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse Width="9" Height="9" Fill="#FF6200" Margin="0,0,6,0"/>
+                        <TextBlock x:Name="ShelfCountText" Text="Hold Shelf (0)" Foreground="#1C1C1E" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Clear" Click="Clear_Click" FontSize="10.5" Padding="6,1" Margin="0,0,4,0"
+                                Background="#18000000" BorderThickness="0" Foreground="#333" Cursor="Hand"/>
+                        <Button Content="✕" Click="Close_Click" FontSize="10.5" Padding="5,1"
+                                Background="#18000000" BorderThickness="0" Foreground="#333" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Draggable File List Area -->
+                <Border Grid.Row="1" Margin="0,8,0,8" CornerRadius="10" Background="#12000000" BorderBrush="#1A000000" BorderThickness="1">
+                    <ListBox x:Name="FilesListBox" Background="Transparent" BorderThickness="0"
+                             Foreground="#1C1C1E" FontSize="11.5" FontWeight="Medium"
+                             SelectionMode="Extended"
+                             PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
+                             PreviewMouseMove="ListBox_PreviewMouseMove"/>
+                </Border>
+
+                <!-- Drag-Out All Button -->
+                <Border Grid.Row="2" CornerRadius="9" Background="#FF6200" Padding="8,6" Cursor="Hand"
+                        PreviewMouseLeftButtonDown="DragAllBadge_MouseLeftButtonDown"
+                        PreviewMouseMove="DragAllBadge_MouseMove">
+                    <TextBlock Text="⇄ Drag All Files Out From Here" Foreground="White" FontSize="11" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
